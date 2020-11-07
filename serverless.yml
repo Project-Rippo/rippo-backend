@@ -1,0 +1,28 @@
+service: rippo-backend
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+plugins:
+  - serverless-appsync-plugin
+
+custom:
+  appSync:
+    name: Rippo-api
+    authenticationType: API_KEY
+    schema: graphql/schema.graphql
+    mappingTemplates:
+      - dataSource: Users
+        type: Query
+        field: getUser
+    dataSources:
+      - type: AMAZON_DYNAMODB
+        name: Users
+        description: Datasource for users table
+        config:
+          tableName: usersTable
+
+functions:
+  hello:
+    handler: handler.graphqlHandler
