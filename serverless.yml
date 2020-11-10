@@ -13,15 +13,25 @@ custom:
     authenticationType: API_KEY
     schema: graphql/schema.graphql
     mappingTemplates:
-      - dataSource: Users
+      - dataSource: ParentsTable
         type: Query
-        field: getUser
+        field: getParent
     dataSources:
       - type: AMAZON_DYNAMODB
-        name: Users
-        description: Datasource for users table
+        name: ParentsTable
+        description: Datasource for parents table
         config:
-          tableName: usersTable
+          tableName: parents
+      - type: AMAZON_DYNAMODB
+        name: ChildsTable
+        description: Datasource for childs table
+        config:
+          tableName: childs
+      - type: AMAZON_DYNAMODB
+        name: DoctorsTable
+        description: Datasource for doctors table
+        config:
+          tableName: doctors
 
 functions:
   hello:

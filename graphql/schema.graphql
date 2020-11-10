@@ -3,24 +3,69 @@ schema {
   mutation: Mutation
 }
 
-type User{
-	id: String
-	username: String
-	name: String	
-	email: String
-	createdAt: String
+# Interface
+
+interface BasicPerson {
+  id: ID!
+  name: String!
+  email: String
+  createdAt: Int
 }
 
-input userInput{
-	username: String
-	name: String	
-	email: String
+# Types
+
+type symptoms {
+  tosse: Int
+  chiado: Int
+  fluxoAr: Int
+  asthmaAttack: Int
+  timestamp: Int
 }
+
+type Child implements BasicPerson {
+  parentId: Int
+  weight: Float
+  height: Float
+}
+
+type Parent implements BasicPerson {
+  childsId: [ID]
+}
+type Doctor implements BasicPerson {
+  childsId: [ID]
+}
+
+# Inputs
+
+input ChildInput {
+  name: String
+  parentId: Int
+  weight: Float
+  height: Float
+}
+
+input ParentInput {
+  name: String!
+  email: String!
+}
+
+input DoctorInput {
+  name: String!
+  email: String!
+}
+
+# Query
 
 type Query {
-	getUser(id: String!): User
+  getParent(id: String!): Parent
+  getChild(id: String!): Child
+  getDoctor(id: String!): Doctor
 }
 
-type Mutation{
-	createUser(input: userInput): User
+# Mutation
+
+type Mutation {
+  createParent(input: ParentInput): Parent
+  createChild(input: ChildInput): Child
+  createDoctor(input: DoctorInput): Doctor
 }
