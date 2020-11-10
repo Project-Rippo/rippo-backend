@@ -9,29 +9,42 @@ interface BasicPerson {
   id: ID!
   name: String!
   email: String
-  createdAt: Int
+  createdAt: String
 }
 
 # Types
 
-type symptoms {
+type Symptoms {
   tosse: Int
   chiado: Int
   fluxoAr: Int
   asthmaAttack: Int
-  timestamp: Int
+  createdAt: String
 }
 
 type Child implements BasicPerson {
+  id: ID!
+  name: String!
+  email: String
+  createdAt: String
   parentId: Int
   weight: Float
   height: Float
+  symptoms: [Symptoms]
 }
 
 type Parent implements BasicPerson {
+  id: ID!
+  name: String!
+  email: String
+  createdAt: String
   childsId: [ID]
 }
 type Doctor implements BasicPerson {
+  id: ID!
+  name: String!
+  email: String
+  createdAt: String
   childsId: [ID]
 }
 

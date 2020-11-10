@@ -12,10 +12,18 @@ custom:
     name: Rippo-api
     authenticationType: API_KEY
     schema: graphql/schema.graphql
+
     mappingTemplates:
       - dataSource: ParentsTable
         type: Query
         field: getParent
+      - dataSource: createChild
+        type: Mutation
+        field: createChild
+      - dataSource: createParent
+        type: Mutation
+        field: createParent
+
     dataSources:
       - type: AMAZON_DYNAMODB
         name: ParentsTable
@@ -32,7 +40,19 @@ custom:
         description: Datasource for doctors table
         config:
           tableName: doctors
+      - type: AWS_LAMBDA
+        name: createChild
+        description: "Create Child DataSource"
+        config:
+          functionName: createChild
+      - type: AWS_LAMBDA
+        name: createParent
+        description: "Create Parent DataSource"
+        config:
+          functionName: createParent
 
 functions:
-  hello:
+  createChild:
+    handler: handler.graphqlHandler
+  createParent:
     handler: handler.graphqlHandler

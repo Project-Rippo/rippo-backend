@@ -1,19 +1,20 @@
-"use strict";
+const ChildHanlder = require("./lambdas/Childs");
+const ParentHanlder = require("./lambdas/Parents");
 
-module.exports.graphqlHandler = async (event, context, callback) => {
+exports.graphqlHandler = async (event, context, callback) => {
+  console.log("event", event);
+  console.log("context", context);
+
   switch (event.field) {
-    case "hello": {
-      callback(null, {
-        statusCode: 200,
-        body: JSON.stringify(
-          {
-            message: "Go Serverless v1.0! Your function executed successfully!",
-            input: event,
-          },
-          null,
-          2
-        ),
-      });
+    case "createChild": {
+      ChildHanlder.createChild(context, callback);
+    }
+    case "createParent": {
+      ParentHanlder.createParent(
+        event.arguments.input.name,
+        event.arguments.input.email,
+        callback
+      );
     }
   }
 };
