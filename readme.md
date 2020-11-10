@@ -1,5 +1,5 @@
 ## Rippo Backend
-Este repositório destinasse ao códgio ultilizado para a construção do backend do projeto Rippo
+Este repositório destinasse aos códigos ultilizados para a construção do backend do projeto Rippo
  
 
 ## Arquitetura 🔨
