@@ -8,8 +8,10 @@ schema {
 interface BasicPerson {
   id: ID!
   name: String!
+  surname: String!
+  birthdate: String!
   email: String
-  createdAt: String
+  createdAt: String!
 }
 
 # Types
@@ -25,9 +27,11 @@ type Symptoms {
 type Child implements BasicPerson {
   id: ID!
   name: String!
+  surname: String!
   email: String
-  createdAt: String
-  parentId: Int
+  birthdate: String!
+  createdAt: String!
+  parentId: ID
   weight: Float
   height: Float
   symptoms: [Symptoms]
@@ -36,35 +40,45 @@ type Child implements BasicPerson {
 type Parent implements BasicPerson {
   id: ID!
   name: String!
+  surname: String!
   email: String
-  createdAt: String
-  childsId: [ID]
+  birthdate: String!
+  createdAt: String!
+  childsId: [String]
 }
 type Doctor implements BasicPerson {
   id: ID!
   name: String!
+  surname: String!
   email: String
-  createdAt: String
-  childsId: [ID]
+  birthdate: String!
+  createdAt: String!
+  childsId: [String]
 }
 
 # Inputs
 
 input ChildInput {
   name: String
-  parentId: Int
+  surname: String!
+  parentId: ID!
   weight: Float
   height: Float
+  birthdate: String!
 }
 
 input ParentInput {
   name: String!
+  surname: String!
   email: String!
+  birthdate: String!
 }
 
 input DoctorInput {
   name: String!
+  surname: String!
   email: String!
+  birthdate: String!
 }
 
 # Query

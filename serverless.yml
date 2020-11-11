@@ -53,6 +53,6 @@ custom:
 
 functions:
   createChild:
-    handler: handler.graphqlHandler
+    handler: handler.ChildHanlder
   createParent:
-    handler: handler.graphqlHandler
+    handler: handler.ParentHanlder
