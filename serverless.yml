@@ -23,6 +23,9 @@ custom:
       - dataSource: createParent
         type: Mutation
         field: createParent
+      - dataSource: updateChildStatus
+        type: Mutation
+        field: updateChildStatus
 
     dataSources:
       - type: AMAZON_DYNAMODB
@@ -50,9 +53,17 @@ custom:
         description: "Create Parent DataSource"
         config:
           functionName: createParent
+      - type: AWS_LAMBDA
+        name: updateChildStatus
+        description: "Update child status DataSource"
+        config:
+          functionName: updateChildStatus
 
 functions:
   createChild:
     handler: handler.ChildHanlder
   createParent:
     handler: handler.ParentHanlder
+  updateChildStatus:
+    handler: handler.ChildHanlder
+

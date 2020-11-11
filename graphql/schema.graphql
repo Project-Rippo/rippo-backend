@@ -34,7 +34,8 @@ type Child implements BasicPerson {
   parentId: ID
   weight: Float
   height: Float
-  symptoms: [Symptoms]
+  status: Symptoms
+  history: [Symptoms]
 }
 
 type Parent implements BasicPerson {
@@ -81,6 +82,9 @@ input DoctorInput {
   birthdate: String!
 }
 
+input UpdateChildInput {
+  childId: ID!
+}
 # Query
 
 type Query {
@@ -95,4 +99,5 @@ type Mutation {
   createParent(input: ParentInput): Parent
   createChild(input: ChildInput): Child
   createDoctor(input: DoctorInput): Doctor
+  updateChildStatus(input: UpdateChildInput): Child
 }

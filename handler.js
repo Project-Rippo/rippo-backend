@@ -2,12 +2,9 @@ const Child = require("./lambdas/Childs");
 const Parent = require("./lambdas/Parents");
 
 exports.ChildHanlder = async (event, context, callback) => {
-  console.log("event", event);
-  console.log("callback:", callback);
-
   switch (event.field) {
     case "createChild": {
-      Child.createChild(
+      await Child.createChild(
         event.arguments.input.name,
         event.arguments.input.surname,
         event.arguments.input.parentId,
@@ -16,17 +13,20 @@ exports.ChildHanlder = async (event, context, callback) => {
         event.arguments.input.birthdate,
         callback
       );
+
+      break;
+    }
+
+    case "updateChildStatus": {
+      await Child.updateChildStatus(event.arguments.input.status, callback);
     }
   }
 };
 
 exports.ParentHanlder = async (event, context, callback) => {
-  console.log("event", event);
-  console.log("context", context);
-
   switch (event.field) {
     case "createParent": {
-      Parent.createParent(
+      await Parent.createParent(
         event.arguments.input.name,
         event.arguments.input.surname,
         event.arguments.input.birthdate,

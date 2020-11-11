@@ -14,18 +14,19 @@ async function createParent(name, surname, birthdate, email, callback) {
     birthdate: birthdate,
     email: email,
     createdAt: Date.now(),
+    childsId: [],
   };
 
-  const params = {
+  const createParentParams = {
     TableName: process.env.parentsTable,
     Item: parent,
   };
 
-  db.put(params, function (err, data) {
-    if (err) {
-      callback(err, null);
-    }
-  });
+  try {
+    await db.put(createParentParams).promise();
+  } catch (err) {
+    callback(err, null);
+  }
 
   callback(null, parent);
 }
