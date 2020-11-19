@@ -17,6 +17,9 @@ custom:
       - dataSource: ParentsTable
         type: Query
         field: getParent
+      - dataSource: ChildsTable
+        type: Query
+        field: listChilds
       - dataSource: createChild
         type: Mutation
         field: createChild

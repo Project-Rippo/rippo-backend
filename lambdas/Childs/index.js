@@ -92,7 +92,7 @@ async function updateChildStatus(childId, status, callback) {
       "#history": "history",
     },
     ExpressionAttributeValues: {
-      ":status": status,
+      ":status": [status],
       ":empty_list": [],
     },
     ReturnValues: "ALL_NEW",

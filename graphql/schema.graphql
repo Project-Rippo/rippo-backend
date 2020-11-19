@@ -47,6 +47,7 @@ type Parent implements BasicPerson {
   createdAt: String!
   childsId: [String]
 }
+
 type Doctor implements BasicPerson {
   id: ID!
   name: String!
@@ -58,6 +59,15 @@ type Doctor implements BasicPerson {
 }
 
 # Inputs
+
+input SymptomsInput {
+  tosse: Int
+  chiado: Int
+  fluxoAr: Int
+  asthmaAttack: Int
+  createdAt: String
+}
+
 
 input ChildInput {
   name: String
@@ -82,8 +92,9 @@ input DoctorInput {
   birthdate: String!
 }
 
-input UpdateChildInput {
+input UpdateChildStatusInput {
   childId: ID!
+  status: SymptomsInput
 }
 # Query
 
@@ -91,6 +102,7 @@ type Query {
   getParent(id: String!): Parent
   getChild(id: String!): Child
   getDoctor(id: String!): Doctor
+  listChilds(parentId: String!): [Child]
 }
 
 # Mutation
@@ -99,5 +111,5 @@ type Mutation {
   createParent(input: ParentInput): Parent
   createChild(input: ChildInput): Child
   createDoctor(input: DoctorInput): Doctor
-  updateChildStatus(input: UpdateChildInput): Child
+  updateChildStatus(input: UpdateChildStatusInput): Child
 }

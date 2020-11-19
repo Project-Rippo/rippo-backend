@@ -18,7 +18,7 @@ exports.ChildHanlder = async (event, context, callback) => {
     }
 
     case "updateChildStatus": {
-      await Child.updateChildStatus(event.arguments.input.status, callback);
+      await Child.updateChildStatus(event.arguments.input.childId, event.arguments.input.status, callback);
     }
   }
 };
