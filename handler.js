@@ -11,6 +11,7 @@ exports.ChildHanlder = async (event, context, callback) => {
         event.arguments.input.weight,
         event.arguments.input.height,
         event.arguments.input.birthdate,
+        event.arguments.input.asthmaClassification,
         callback
       );
 
@@ -18,7 +19,11 @@ exports.ChildHanlder = async (event, context, callback) => {
     }
 
     case "updateChildStatus": {
-      await Child.updateChildStatus(event.arguments.input.childId, event.arguments.input.status, callback);
+      await Child.updateChildStatus(
+        event.arguments.input.childId,
+        event.arguments.input.status,
+        callback
+      );
     }
   }
 };

@@ -35,6 +35,7 @@ type Child implements BasicPerson {
   weight: Float
   height: Float
   status: Symptoms
+  asthmaClassification: Int!
   history: [Symptoms]
 }
 
@@ -65,7 +66,6 @@ input SymptomsInput {
   chiado: Int
   fluxoAr: Int
   asthmaAttack: Int
-  createdAt: String
 }
 
 
@@ -76,6 +76,7 @@ input ChildInput {
   weight: Float
   height: Float
   birthdate: String!
+  asthmaClassification: Int!
 }
 
 input ParentInput {

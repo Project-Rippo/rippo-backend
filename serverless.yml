@@ -19,6 +19,9 @@ custom:
         field: getParent
       - dataSource: ChildsTable
         type: Query
+        field: getChild
+      - dataSource: ChildsTable
+        type: Query
         field: listChilds
       - dataSource: createChild
         type: Mutation
@@ -69,4 +72,11 @@ functions:
     handler: handler.ParentHanlder
   updateChildStatus:
     handler: handler.ChildHanlder
+    # events: 
+    #   - http: post update/childStatus
+  restUpdateChildStatus: 
+    handler: handlers/updateChildStatusHandler.updateChildStatus
+    events: 
+      - http: POST rest/update/childStatus
+
 

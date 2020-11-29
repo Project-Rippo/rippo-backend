@@ -12,6 +12,7 @@ async function createChild(
   weight,
   height,
   birthdate,
+  asthmaClassification,
   callback
 ) {
   const db = new AWS.DynamoDB.DocumentClient();
@@ -36,6 +37,7 @@ async function createChild(
     createdAt: timestamp,
     status: symptoms,
     history: [symptoms],
+    asthmaClassification: asthmaClassification,
   };
 
   const createChildParams = {
@@ -78,7 +80,7 @@ async function updateChildStatus(childId, status, callback) {
   const db = new AWS.DynamoDB.DocumentClient();
   const timestamp = Date.now();
 
-  status.timestamp = timestamp;
+  status.createdAt = timestamp;
 
   var updateChildParams = {
     TableName: process.env.childsTable,
@@ -86,7 +88,7 @@ async function updateChildStatus(childId, status, callback) {
       id: childId,
     },
     UpdateExpression:
-      "set #status = :status, set #history = list_append(if_not_exists(#history, :empty_list), :status)",
+      "set #status = :status, #history = list_append(if_not_exists(#history, :empty_list), :status)",
     ExpressionAttributeNames: {
       "#status": "status",
       "#history": "history",
@@ -95,15 +97,31 @@ async function updateChildStatus(childId, status, callback) {
       ":status": [status],
       ":empty_list": [],
     },
+    ConditionExpression: "attribute_exists(id)",
     ReturnValues: "ALL_NEW",
   };
 
   try {
-    const newChild = await db.update(updateChildParams).promise();
-    callback(null, newChild);
+    await db.update(updateChildParams).promise();
   } catch (err) {
-    callback(err, null);
+    callback(
+      {
+        statusCode: 400,
+        body: JSON.stringify(err),
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      },
+      null
+    );
   }
+  callback(null, {
+    statusCode: 200,
+    body: JSON.stringify(status),
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
 }
 
 module.exports = { createChild, updateChildStatus };
