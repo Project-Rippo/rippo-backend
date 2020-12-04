@@ -88,13 +88,14 @@ async function updateChildStatus(childId, status, callback) {
       id: childId,
     },
     UpdateExpression:
-      "set #status = :status, #history = list_append(if_not_exists(#history, :empty_list), :status)",
+      "set #status = :status, #history = list_append(if_not_exists(#history, :empty_list), :statusList)",
     ExpressionAttributeNames: {
       "#status": "status",
       "#history": "history",
     },
     ExpressionAttributeValues: {
-      ":status": [status],
+      ":status": status,
+      ":statusList": [status],
       ":empty_list": [],
     },
     ConditionExpression: "attribute_exists(id)",
